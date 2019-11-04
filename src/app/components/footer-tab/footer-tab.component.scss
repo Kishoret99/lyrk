@@ -1,0 +1,33 @@
+@import "@material/tab-bar/mdc-tab-bar";
+@import "@material/tab-scroller/mdc-tab-scroller";
+@import "@material/tab-indicator/mdc-tab-indicator";
+@import "@material/tab/mdc-tab";
+@import "../../styles/theme.scss";
+.component-wrapper .mdc-tab-bar {
+    background: $mdc-theme-primary;
+  
+    .mdc-tab {
+        @include mdc-tab-text-label-color($mdc-theme-on-primary);
+        @include mdc-tab-states-color($mdc-theme-secondary);
+  
+        .mdc-tab__ripple {
+            @include mdc-states($mdc-theme-on-primary);
+        }
+        @include mdc-tab-active-icon-color($mdc-theme-secondary);
+        @include mdc-tab-active-text-label-color($mdc-theme-secondary);	
+        .mdc-tab__text-label {
+            text-transform: capitalize;
+        }
+    
+    }
+  
+    .mdc-tab-indicator {
+      @include mdc-tab-indicator-underline-color($mdc-theme-secondary);
+    }
+}
+
+
+
+
+
+  

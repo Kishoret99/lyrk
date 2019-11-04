@@ -1,0 +1,4 @@
+$default-primary: mat-palette($mat-pink, A200, A100, A400);
+$default-accent:  mat-palette($mat-orange, A200, A400, A700);
+
+$default-theme: mat-light-theme($default-primary, $default-accent);

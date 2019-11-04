@@ -1,0 +1,1 @@
+export const getBannersSelector = () => (state) => state.banners;

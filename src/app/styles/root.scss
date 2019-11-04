@@ -1,0 +1,44 @@
+@import "@material/typography/mdc-typography";
+
+h1 {
+    @include mdc-typography(headline1);
+}
+
+h2 {
+    @include mdc-typography(headline2);
+}
+
+h3 {
+    @include mdc-typography(headline3);
+}
+
+h4 {
+    @include mdc-typography(headline4);
+}
+
+h5 {
+    @include mdc-typography(headline5);
+}
+
+h6 {
+    @include mdc-typography(headline6);
+}
+
+// This sets all <p> elements with Material body1 typography styles
+p {
+    @include mdc-typography(body1);
+}
+
+// headline1
+// headline2
+// headline3
+// headline4
+// headline5
+// headline6
+// subtitle1
+// subtitle2
+// body1
+// body2
+// caption
+// button
+// overline
