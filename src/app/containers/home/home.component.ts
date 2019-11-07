@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { APP_STATE, Store } from 'src/app/store/core';
 import { getBannersRequestAction } from 'src/app/store/banners/actions';
 import { getBannersSelector } from 'src/app/store/banners/selector';
-import { State } from 'src/app/store/reducer';
 import { Observable } from 'rxjs';
 
 

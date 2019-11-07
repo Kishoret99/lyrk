@@ -10,16 +10,16 @@ import { Observable } from 'rxjs';
 export class BannerComponent implements OnInit {
 
   @Input() banners$;
-  @Input() testStrng;
   banners;
+  loadingBanners;
   public currentSlide: number;
   public slidesLength: number;
   constructor() { }
 
   ngOnInit() {
     this.slidesLength = 5;
+    this.loadingBanners = (new Array(this.slidesLength)).fill(null);
     this.currentSlide = 1;
-    this.updateSlide();
     this.banners$.subscribe(bannersState => {
       this.banners = bannersState.data;
       this.slidesLength = this.banners.length;
@@ -28,6 +28,9 @@ export class BannerComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit() {
+    this.updateSlide();
+  }
   nextSlide() {
     this.currentSlide += 1;
     if(this.currentSlide > this.slidesLength) {
@@ -45,15 +48,17 @@ export class BannerComponent implements OnInit {
   }
 
   private updateSlide() {
-    const slides = document.querySelectorAll('.lyrk-card-list .lyrkcard');
-    if (!slides || !Array.isArray(slides) || slides.length == 0) {
+    // @ts-ignore
+    const slides: HTMLDivElement[] = document.querySelectorAll('.lyrk-card-list .lyrkcard');
+    if (!slides || slides.length == 0) {
       return;
     }
     slides.forEach((slide: HTMLDivElement) => {
       slide.style.display = 'none';
     })
-    slides[this.currentSlide].style.display = 'block';
-    slides[this.currentSlide - 1] ? slides[this.currentSlide - 1].style.display = 'block' : '';
-    slides[this.currentSlide + 1] ? slides[this.currentSlide + 1].style.display = 'block' : '';
+    const currIndex = this.currentSlide - 1;
+    slides[currIndex].style.display = 'block';
+    slides[currIndex - 1] ? (slides[currIndex - 1].style.display = 'block') : '';
+    slides[currIndex + 1] ? (slides[currIndex + 1].style.display = 'block') : '';
   }
 }

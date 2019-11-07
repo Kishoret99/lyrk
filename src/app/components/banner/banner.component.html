@@ -1,11 +1,11 @@
-<p>{{ (banners$ | async).data | json }}</p>
-
-
-
-<div class="lyrk-card-list">
-    <div class="lyrkcard">
+<div *ngIf="!banners || banners.length == 0" class="lyrk-card-list">
+    <div *ngFor="let banner of loadingBanners" class="lyrkcard">
 
     </div>
+</div>
+
+
+<div class="lyrk-card-list" *ngIf="banners && banners.length != 0">
 
     <div class="lyrkcard overlay">
         <div class="image image--no">

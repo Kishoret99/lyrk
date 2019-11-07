@@ -1,6 +1,6 @@
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { BannerComponent } from './banner.component';
-import { of } from 'rxjs';
+import { of, empty } from 'rxjs';
 
 describe('BannerComponent', () => {
   let spectator: Spectator<BannerComponent>;
@@ -52,4 +52,48 @@ describe('BannerComponent', () => {
     });
     expect(spectator.component.slidesLength).toEqual(1)
   });
+
+  it('should have 5 loading images when the subscription is not yet loaded', () => {
+    spectator = createComponent({
+      props: {
+        banners$: empty()
+      }
+    });
+    spectator.fixture.detectChanges();
+    expect(spectator.component.currentSlide).toEqual(1);
+
+    const nodes = spectator.queryAll('.lyrkcard');
+    expect(nodes).toHaveLength(5);
+    
+    nodes.forEach((node, index) => {
+      if(index == 0 || index == 1) {
+        expect(node).toHaveStyle({display:"block"});
+      } else {
+        expect(node).toHaveStyle({display: "none"});
+      }
+    })
+
+    spectator.component.nextSlide();
+    spectator.component.nextSlide();
+    expect(spectator.component.currentSlide).toEqual(3);
+
+    nodes.forEach((node, index) => {
+      if(index == 1 || index == 2 || index == 3) {
+        expect(node).toHaveStyle({display:"block"});
+      } else {
+        expect(node).toHaveStyle({display: "none"});
+      }
+    })
+    
+    spectator.component.prevSlide();
+    expect(spectator.component.currentSlide).toEqual(2);
+
+    nodes.forEach((node, index) => {
+      if(index == 0 || index == 1 || index == 2) {
+        expect(node).toHaveStyle({display:"block"});
+      } else {
+        expect(node).toHaveStyle({display: "none"});
+      }
+    })
+  })
 });
