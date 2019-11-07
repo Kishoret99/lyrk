@@ -1,11 +1,9 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Directive } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BannerComponent implements OnInit {
 
@@ -60,5 +58,9 @@ export class BannerComponent implements OnInit {
     slides[currIndex].style.display = 'block';
     slides[currIndex - 1] ? (slides[currIndex - 1].style.display = 'block') : '';
     slides[currIndex + 1] ? (slides[currIndex + 1].style.display = 'block') : '';
+  }
+
+  getImageOverlayStyle(banner) {
+    return `linear-gradient(0, rgba(0,0,0, 0.5),rgba(255,255,255,0.2)), url(${banner.imageUrl})`;
   }
 }

@@ -1,6 +1,8 @@
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { BannerComponent } from './banner.component';
-import { of, empty } from 'rxjs';
+import { of, empty, timer } from 'rxjs';
+import { fakeAsync, tick } from '@angular/core/testing';
+import { map } from 'rxjs/operators';
 
 describe('BannerComponent', () => {
   let spectator: Spectator<BannerComponent>;
@@ -96,4 +98,87 @@ describe('BannerComponent', () => {
       }
     })
   })
+
+  it('when loaded, loadng mages should go and banner dv should render', () => {
+
+    spectator = createComponent({
+        props: {
+            banners$: of({
+              data: [
+                {
+                  active: true,
+                  imageUrl: 'https://dummyimage.com/300x150/d3d4e3/0011ff',
+                  movieLink: '/movies/f5rHQPW7HHY9KmGhsFWW',
+                  title: 'Chaanakya'
+                },
+                {
+                  active: true,
+                  imageUrl: 'https://dummyimage.com/300x150/d3d4e3/0011ff',
+                  movieLink: '/movies/f5rHQPW7HHY9KmGhsFWW',
+                  title: 'Oxygen'
+                }
+              ],
+              status: 'SUCCESS',
+              error: null
+            })
+        }
+    });
+    expect(spectator.component.slidesLength).toEqual(2);
+    expect(spectator.component.currentSlide).toEqual(1);
+    const nodes = spectator.queryAll('.lyrkcard');
+    expect(nodes).toHaveLength(2);
+    nodes.forEach((node, index) => {
+      switch(index) {
+        case 0:
+          expect(node).toHaveDescendantWithText({selector: '.subtitle', text: 'Chaanakya'})
+          break;
+        
+        case 2:
+          expect(node).toHaveDescendantWithText({selector: '.subtitle', text: 'Oxygen'})
+          break;
+      }
+    })
+  });
+
+  it('default show loadng and then after respone s loaded show the banners', fakeAsync(() => {
+
+    spectator = createComponent({
+        props: {
+            banners$: timer(5000).pipe(map(() => ({
+              data: [
+                {
+                  active: true,
+                  imageUrl: 'https://dummyimage.com/300x150/d3d4e3/0011ff',
+                  movieLink: '/movies/f5rHQPW7HHY9KmGhsFWW',
+                  title: 'Chaanakya'
+                },
+                {
+                  active: true,
+                  imageUrl: 'https://dummyimage.com/300x150/d3d4e3/0011ff',
+                  movieLink: '/movies/f5rHQPW7HHY9KmGhsFWW',
+                  title: 'Oxygen'
+                },
+                {
+                  active: true,
+                  imageUrl: 'https://dummyimage.com/300x150/d3d4e3/0011ff',
+                  movieLink: '/movies/f5rHQPW7HHY9KmGhsFWW',
+                  title: 'Chaanakya'
+                }
+              ],
+              status: 'SUCCESS',
+              error: null
+            })))
+        },
+        detectChanges: false
+    });
+    spectator.detectChanges();
+    expect(spectator.component.slidesLength).toEqual(5);
+    tick(5000);
+    spectator.detectChanges();
+    spectator.component
+    const nodes = spectator.queryAll('.lyrkcard');
+    expect(nodes).toHaveLength(3);
+  
+    expect(spectator.element).toHaveData({data: 'clientHeight', val: '5px'})
+  }));
 });
