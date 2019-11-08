@@ -1,14 +1,45 @@
-.lyrk-card-list {
+.iconactions {
+    position: absolute;
     display: flex;
-    width: 360px;    
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 10%;
+    height: 150px;
+    align-items: center;
+    span {
+        line-height: 150px;
+    }
+    .rotate {
+        transform: rotate(180deg)
+    }
 }
 
+.ripple {
+    background-position: center;
+    transition: background 0.4s;
+  }
+.ripple:active {
+    background-color:rgba($color:lightgrey, $alpha: 0.25);
+    background-size: 100%;
+    transition: background 0s;
+}
+    
+
+.lyrk-card-list {
+    display: flex;
+    width: 100%;  
+    overflow: hidden;
+}
+
+.lyrkcard:first-child {
+    margin-left: 10%;
+}
 .lyrkcard {
-    min-width: 300px;
+    min-width: 80%;
     height: 150px;
     background-color: #D3D3D3;
     border-radius: 10px;
-    margin: 0px 10px;
+    margin: 0px 10%;
     overflow: hidden;
     &.overlay {
         background-image: linear-gradient(to bottom, #FFFFFF, gray);
@@ -23,12 +54,49 @@
         height: 100%;
         background-size: cover;
         background-repeat: no-repeat;
+        transition: background-image 3s;
+        -webkit-transition: background-image 3s ease; 
         h6 {
             margin: 0 auto;
             margin-bottom: 18px;
         }
-        &.image--no {
-            background-image: linear-gradient(0, rgba(0,0,0, 0.5),rgba(255,255,255,0.2)), url("https://in.bmscdn.com/iedb/movies/imags/mobile/listing/xxlarge/chanakya-et00104812-12-06-2019-02-44-33.jpg");
+        .subtitle {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 200px;
+            text-align: center;
+            margin: 16px auto;
+            overflow: hidden;
         }
     }
+
+}
+
+.dots{ 
+    position: absolute;
+    .dot {
+        width:5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: darkslategrey;
+    }    
+}
+
+
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+  
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+  
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
 }

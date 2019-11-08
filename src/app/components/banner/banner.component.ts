@@ -22,7 +22,7 @@ export class BannerComponent implements OnInit {
       this.banners = bannersState.data;
       this.slidesLength = this.banners.length;
       this.currentSlide = 1;
-      this.updateSlide();
+      setTimeout(() => this.updateSlide(),0);
     })
   }
 
@@ -56,8 +56,8 @@ export class BannerComponent implements OnInit {
     })
     const currIndex = this.currentSlide - 1;
     slides[currIndex].style.display = 'block';
-    slides[currIndex - 1] ? (slides[currIndex - 1].style.display = 'block') : '';
-    slides[currIndex + 1] ? (slides[currIndex + 1].style.display = 'block') : '';
+    // slides[currIndex - 1] ? (slides[currIndex - 1].style.display = 'block') : '';
+    // slides[currIndex + 1] ? (slides[currIndex + 1].style.display = 'block') : '';
   }
 
   getImageOverlayStyle(banner) {

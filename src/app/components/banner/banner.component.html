@@ -1,13 +1,27 @@
-<div *ngIf="!banners || banners.length == 0" class="lyrk-card-list">
-    <div *ngFor="let banner of loadingBanners" class="lyrkcard">
-
+<div style="position: relative">
+    <div class="iconactions">
+        <span class="mdc-tab__icon material-icons rotate ripple" aria-hidden="true" (click)="prevSlide()">arrow_forward_ios</span>
+        <span class="mdc-tab__icon material-icons ripple" aria-hidden="true" (click)="nextSlide()">arrow_forward_ios</span>
     </div>
-</div>
 
-<div class="lyrk-card-list" *ngIf="banners && banners.length != 0">
-    <a *ngFor="let banner of banners" class="lyrkcard overlay">
-        <div class="image" [ngStyle]="{'background-image': getImageOverlayStyle(banner)}">
-            <h6 class="subtitle">{{banner.title}}</h6>
+    <div *ngIf="!banners || banners.length == 0" class="lyrk-card-list">
+        <div *ngFor="let banner of loadingBanners" class="lyrkcard">
+    
         </div>
-    </a>
+    </div>
+    
+    <div class="lyrk-card-list" *ngIf="banners && banners.length != 0">
+    
+        <a *ngFor="let banner of banners" class="lyrkcard overlay fade">
+            <div class="image" [ngStyle]="{'background-image': getImageOverlayStyle(banner)}">
+              <p class="subtitle">{{banner.title}}</p>
+            </div>
+        </a>
+    </div>
+
+    <!-- <div *ngIf="banners && banners.length != 0" class="dots">
+      <span *ngFor="let banner of banners" class="dot"></span>
+    </div> -->
+
+    
 </div>

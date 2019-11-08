@@ -5,6 +5,9 @@
 @import "../../styles/theme.scss";
 .component-wrapper .mdc-tab-bar {
     background: $mdc-theme-primary;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
   
     .mdc-tab {
         @include mdc-tab-text-label-color($mdc-theme-on-primary);
